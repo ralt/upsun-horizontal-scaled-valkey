@@ -23,10 +23,10 @@ if 'valkey' in relationships:
 # Create Redis cluster client
 if valkey_nodes:
     # For cluster mode, use RedisCluster
-    from redis.cluster import RedisCluster
+    from redis.cluster import RedisCluster, ClusterNode
     redis_client = RedisCluster(
         startup_nodes=[
-            {'host': node['host'], 'port': node['port']}
+            ClusterNode(node['host'], node['port'])
             for node in valkey_nodes
         ],
         decode_responses=True
