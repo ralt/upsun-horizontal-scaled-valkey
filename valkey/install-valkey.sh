@@ -17,4 +17,7 @@ echo "Extracting and building Valkey..."
 tar -xzf $PLATFORM_CACHE_DIR/valkey/valkey-"$VALKEY_VERSION".tar.gz -C $PLATFORM_APP_DIR
 mv $PLATFORM_APP_DIR/valkey-"$VALKEY_VERSION" $PLATFORM_APP_DIR/valkey
 
+cd $PLATFORM_APP_DIR/valkey
+make
+
 echo "Valkey build completed!"
