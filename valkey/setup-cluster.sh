@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+rm -f /tmp/nodes.conf
+
 echo "Setting up Valkey cluster from /run/peers.json..."
 
 # Parse peers.json and create cluster

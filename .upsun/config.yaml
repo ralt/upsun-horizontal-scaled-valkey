@@ -14,11 +14,6 @@ applications:
         start: ./valkey/src/valkey-server valkey.conf --cluster-enabled yes
         post_start: ./join-cluster.sh
 
-    mounts:
-      "/.valkey":
-        source: "local"
-        source_path: "valkey_data"
-
     variables:
       env:
         VALKEY_VERSION: 9.0.0
