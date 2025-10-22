@@ -14,3 +14,5 @@ for node, ip in peers.items():
         continue
     subprocess.check_call(["./valkey/src/valkey-cli", "--cluster", "add-node", "0.0.0.0:6379", f"{ip}:6379"])
     break
+
+print("Node has joined the cluster!")
