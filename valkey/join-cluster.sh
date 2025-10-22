@@ -1,8 +1,14 @@
 #!/usr/bin/env python3
 
 import json
+import os
 import socket
 import subprocess
+
+try:
+    os.unlink("/tmp/nodes.conf")
+except OSError:
+    pass
 
 with open("/run/peers.json") as peers_f:
     peers = json.load(peers_f)
