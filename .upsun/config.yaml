@@ -1,0 +1,48 @@
+routes:
+  "https://{default}/":
+    type: upstream
+    upstream: "app:http"
+
+applications:
+  valkey:
+    type: "nodejs:22"
+    source:
+      root: valkey
+
+    web:
+      commands:
+        start: ./valkey/src/valkey-server valkey.conf --cluster-enabled yes
+
+    mounts:
+      "/.valkey":
+        source: "local"
+        source_path: "valkey_data"
+
+    variables:
+      env:
+        VALKEY_VERSION: 9.0.0
+
+    hooks:
+      build: ./install-valkey.sh
+      deploy: ./setup-cluster.sh
+
+  app:
+    type: "python:3.12"
+    source:
+      root: app
+
+    relationships:
+      valkey:
+        service: valkey
+        endpoint: http
+
+    web:
+      commands:
+        start: "python app.py"
+      locations:
+        "/":
+          passthru: true
+
+    dependencies:
+      python3:
+        redis: "*"
