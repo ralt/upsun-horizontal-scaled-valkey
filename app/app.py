@@ -14,9 +14,9 @@ relationships = json.loads(base64.b64decode(
 # Connect to Valkey cluster
 valkey_nodes = []
 if 'valkey' in relationships:
-    for node in relationships['valkey']:
+    for instance in relationships['valkey'][0]['instance_ips']:
         valkey_nodes.append({
-            'host': node['host'],
+            'host': instance,
             'port': 6379  # Valkey port
         })
 
