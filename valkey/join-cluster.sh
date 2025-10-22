@@ -2,6 +2,7 @@
 
 import json
 import socket
+import subprocess
 
 with open("/run/peers.json") as peers_f:
     peers = json.load(peers_f)
