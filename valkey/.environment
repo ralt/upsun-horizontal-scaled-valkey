@@ -1,0 +1,1 @@
+export VALKEYCLI_AUTH="only necessary because valkey doesn't work in 0.0.0.0 mode without a password"
