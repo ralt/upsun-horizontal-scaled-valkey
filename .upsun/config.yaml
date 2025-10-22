@@ -12,6 +12,7 @@ applications:
     web:
       commands:
         start: ./valkey/src/valkey-server valkey.conf --cluster-enabled yes
+        post_start: ./setup-cluster.sh
 
     mounts:
       "/.valkey":
@@ -24,7 +25,6 @@ applications:
 
     hooks:
       build: ./install-valkey.sh
-      deploy: ./setup-cluster.sh
 
   app:
     type: "python:3.12"
