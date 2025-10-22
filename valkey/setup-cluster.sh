@@ -6,6 +6,7 @@ echo "Setting up Valkey cluster from /run/peers.json..."
 # Parse peers.json and create cluster
 echo "Peers found:"
 cat /run/peers.json
+echo
 
 # Extract IPs and create cluster meet commands
 # This will be executed after Valkey starts
@@ -14,7 +15,7 @@ jq -r 'to_entries[] | .value' /run/peers.json | while read ip; do
 done
 
 # Save cluster formation commands for runtime
-jq -r 'to_entries[] | .value + ":6379"' /run/peers.json > ~/.valkey/cluster_nodes.txt || true
+jq -r 'to_entries[] | .value + ":6379"' /run/peers.json > /tmp/cluster_nodes.txt || true
 
 echo "Cluster setup prepared"
 
@@ -22,7 +23,7 @@ echo "Cluster setup prepared"
 echo "Forming/updating Valkey cluster..."
 
 # Get all node addresses
-NODES=$(cat .valkey/cluster_nodes.txt | tr '\n' ' ')
+NODES=$(cat /tmp/cluster_nodes.txt | tr '\n' ' ')
 
 # Use valkey-cli to create cluster
 # Note: This assumes automatic yes to prompts
