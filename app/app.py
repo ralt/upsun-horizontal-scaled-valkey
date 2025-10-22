@@ -1,13 +1,15 @@
-import os
-import json
+import base64
 from http.server import HTTPServer, BaseHTTPRequestHandler
+import json
+import os
+
 import redis
 
 # Get Valkey connection info from relationships
 # Note: In Upsun, relationships are available via PLATFORM_RELATIONSHIPS
-relationships = json.loads(
+relationships = json.loads(base64.b64decode(
     os.environ.get('PLATFORM_RELATIONSHIPS', '{}')
-)
+))
 
 # Connect to Valkey cluster
 valkey_nodes = []
