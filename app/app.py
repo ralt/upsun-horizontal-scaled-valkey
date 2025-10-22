@@ -29,7 +29,8 @@ if valkey_nodes:
             ClusterNode(node['host'], node['port'])
             for node in valkey_nodes
         ],
-        decode_responses=True
+        decode_responses=True,
+        password="only necessary because valkey doesn't work in 0.0.0.0 mode without a password"
     )
 else:
     redis_client = None
