@@ -44,6 +44,26 @@ Use this environment to test various horizontal scaling scenarios:
 - Performance benchmarks under load
 - Cluster reconfiguration and rebalancing
 
+## Caveats and Limitations
+
+### Cloning Environments
+
+**Warning**: Cloning an environment with a different number of Valkey instances than the parent will result in shard loss and data corruption.
+
+When cloning, the cluster topology from the parent environment won't match the new instance count, causing shards to become inaccessible or lost.
+
+**Workaround**: Ensure the child environment has the same number of instances as the parent before cloning. This will preserve the cluster topology and data integrity.
+
+### Stateless vs Stateful
+
+**Important**: This example uses **ephemeral/stateless Valkey** - data does not persist between deployments and `nodes.conf` is cleaned on startup.
+
+If you're working with a **stateful Valkey cluster** (with persistent storage):
+- Cloning requires more careful planning
+- Data migration and resharding strategies must be considered
+- Backup and restore procedures should be in place
+- Topology changes require manual intervention to prevent data loss
+
 ## Notes
 
 - This is a **test environment** - not intended for production use
